@@ -14,6 +14,8 @@ const BASE_Y = 19
 const BASE_Y_MENU = 11
 /** Wander sweep: cx oscillates between 16 - AMP and 16 + AMP. */
 const CENTER_X = 16
+/** Menu mode has no props to make room for, so he stands in the middle. */
+const CENTER_X_MENU = 23
 const WANDER_AMP = 8
 /** Wander laps per second. */
 const WANDER_SPEED = 0.16
@@ -75,7 +77,11 @@ export function drawLcd(lcd: Lcd, s: TamaState, t: number) {
   const wander = s.mode === 'idle' && !scripted && s.mood !== 'sleeping'
 
   if (wander) wanderPhase += dt * WANDER_SPEED
-  const target = wander ? CENTER_X + WANDER_AMP * Math.sin(wanderPhase * TAU) : CENTER_X
+  const target = calm
+    ? CENTER_X_MENU
+    : wander
+      ? CENTER_X + WANDER_AMP * Math.sin(wanderPhase * TAU)
+      : CENTER_X
   cxSmooth += (target - cxSmooth) * Math.min(1, dt * 5)
   if (target - cxSmooth > 0.2) facingLeft = false
   else if (cxSmooth - target > 0.2) facingLeft = true

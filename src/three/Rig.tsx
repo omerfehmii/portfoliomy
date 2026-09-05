@@ -256,14 +256,14 @@ export function Rig() {
     const section = st.mode === 'section'
     const S = sm.current
 
-    // layout: desktop = device in the left half, content card on the right; mobile = device on top
+    // layout: desktop = device just left of centre (so a right-side panel never overlaps it), mobile = device on top
     const base = mobile
       ? THREE.MathUtils.clamp(vw / 2.9, 0.4, 1)
-      : THREE.MathUtils.clamp((vw / 2 - 0.3) / 2.7, 0.46, 1)
-    const scaleTarget = base * (section && mobile ? 0.78 : 1) * DEBUG_ZOOM
+      : THREE.MathUtils.clamp(vw / 3.7, 0.46, 1)
+    const scaleTarget = base * (section ? (mobile ? 0.78 : 0.94) : 1) * DEBUG_ZOOM
     damp(S, 'scale', scaleTarget, 0.35, delta)
-    damp(S, 'anchorX', mobile ? 0 : -vw * 0.22, 0.45, delta)
-    damp(S, 'yd', mobile ? (section ? vh * 0.24 : vh * 0.12) : -0.28 * S.scale, 0.45, delta)
+    damp(S, 'anchorX', mobile ? 0 : -vw * 0.06, 0.45, delta)
+    damp(S, 'yd', mobile ? (section ? vh * 0.24 : vh * 0.12) : -0.3 * S.scale, 0.45, delta)
     const s = S.scale
     const anchorY = vh / 2 + 0.3
     const rod = ATTACH_OFFSET * s

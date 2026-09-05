@@ -189,8 +189,9 @@ function drawFigure(lcd: Lcd, section: SectionId, t: number) {
       return
     }
     case 'extra': {
+      // Shakes sideways only: a 16px pose plus a bob would land on the ticker rule.
       const shake = Math.floor(t * 12) % 2
-      lcd.blit(H.MINI_ARMS_UP, x + shake, y + (Math.floor(t * 6) % 2))
+      lcd.blit(H.MINI_ARMS_UP, x + shake, y)
       const off = Math.floor(t * 8) % 3
       for (let i = 0; i < 3; i++) {
         if (i === off) continue

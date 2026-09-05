@@ -39,8 +39,8 @@ export function drawBoot(lcd: Lcd, bt: number) {
   }
 
   const p = bt - POP_AT
-  lcd.blit(P.SHELL, 11, 34)
-  lcd.blit(P.SHELL, 28, 34, { flipX: true })
+  lcd.blit(P.SHELL, 8, 34)
+  lcd.blit(P.SHELL, 31, 34, { flipX: true })
   const hop = Math.max(0, 5 - Math.round(p * 28))
   const pose = p < 0.35 ? H.ARMS_UP : Math.floor(p * 2.5) % 2 === 0 ? H.IDLE_A : H.IDLE_B
   lcd.blit(pose, POP_X, POP_Y - hop)
