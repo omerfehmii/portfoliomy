@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { ICONS, useTama } from '../store/useTama'
+import { useTama } from '../store/useTama'
 import { profile } from '../content'
 import { PixelEgg } from './Glyphs'
-import { ICON_LABEL, PAGE_COUNT, SECTION_META, SECTION_ORDER } from './meta'
+import { SECTION_META, SECTION_ORDER } from './meta'
 import { SectionPanel } from './SectionPanel'
 import { MOBILE_QUERY, useMediaQuery } from './useMediaQuery'
 import '../styles/ui.css'
@@ -15,18 +15,6 @@ const SPECS: Array<[string, string]> = [
   ['Status', profile.available ? profile.availableText : 'Fully booked for now'],
 ]
 
-/** Browsing the menu, the caption is just the name of whatever is under the cursor. */
-function useCaption() {
-  const mode = useTama((s) => s.mode)
-  const section = useTama((s) => s.section)
-  const cursor = useTama((s) => s.cursor)
-  const icon = cursor >= 0 && cursor < ICONS.length ? ICONS[cursor] : null
-  if (mode === 'boot') return { kind: 'hint', text: 'Press any button to hatch.' }
-  if (mode === 'idle') return { kind: 'fig', text: 'Press a button to open the menu.' }
-  if (mode === 'menu') return { kind: 'hint', text: icon ? ICON_LABEL[icon] : 'Menu' }
-  return { kind: 'hint', text: section ? SECTION_META[section].label : 'Menu' }
-}
-
 export function Overlay() {
   const mode = useTama((s) => s.mode)
   const section = useTama((s) => s.section)
@@ -37,8 +25,6 @@ export function Overlay() {
   const toggleSound = useTama((s) => s.toggleSound)
   const isMobile = useMediaQuery(MOBILE_QUERY)
   const [helpOpen, setHelpOpen] = useState(false)
-  const caption = useCaption()
-  const page = section ? SECTION_META[section].page : 1
 
   useEffect(() => {
     if (mode === 'section') setHelpOpen(false)
@@ -104,18 +90,12 @@ export function Overlay() {
         type="button"
         className="help-toggle"
         aria-expanded={helpOpen}
-        aria-label={helpOpen ? 'Hide legend and contents' : 'Show legend and contents'}
+        aria-label={helpOpen ? 'Hide contents' : 'Show contents'}
         onClick={() => setHelpOpen((v) => !v)}
       >
         {helpOpen ? '×' : '?'}
       </button>
       {helpOpen && <button type="button" className="scrim" aria-label="Close" onClick={() => setHelpOpen(false)} />}
-
-      <footer className="run-foot">
-        <span className="foot-left">p. {page} / {PAGE_COUNT}</span>
-        <p className="caption" data-kind={caption.kind} aria-live="polite">{caption.text}</p>
-        <span className="foot-right">edition: angel · no. {profile.hatchedYear}-gtu</span>
-      </footer>
 
       <SectionPanel />
     </div>
