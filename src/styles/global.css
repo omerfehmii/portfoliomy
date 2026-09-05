@@ -1,7 +1,9 @@
 /* Base tokens. UI owner (ui/*) may extend; keep variable names stable. */
 :root {
-  --bg: #f4f3ee;
-  --bg-2: #ebe9e1;
+  --bg: #f4f2ec;
+  --bg-2: #ece9e0;
+  --page: #fbf9f4;
+  --accent: #5b88cf;
   --ink: #1b2130;
   --ink-2: #3a4256;
   --muted: #7b8194;
@@ -38,8 +40,10 @@
   color-scheme: light;
 }
 [data-theme='night'] {
-  --bg: #0e1220;
-  --bg-2: #141a2b;
+  --bg: #0f1320;
+  --bg-2: #151a2a;
+  --page: #151a2a;
+  --accent: #8fb3ea;
   --ink: #e9edf7;
   --ink-2: #c3cad9;
   --muted: #8791a8;

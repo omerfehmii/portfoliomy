@@ -5,6 +5,7 @@ import { useCursor } from '@react-three/drei'
 import { damp } from 'maath/easing'
 import { useTama } from '../store/useTama'
 import { Device, ATTACH_OFFSET } from './Device'
+import { CalloutTracker } from './CalloutTracker'
 
 /**
  * Verlet ball chain hanging from an off-screen anchor. The device is two nodes:
@@ -260,9 +261,9 @@ export function Rig() {
     const base = mobile
       ? THREE.MathUtils.clamp(vw / 2.9, 0.4, 1)
       : THREE.MathUtils.clamp(vw / 3.7, 0.46, 1)
-    const scaleTarget = base * (section ? (mobile ? 0.78 : 0.94) : 1) * DEBUG_ZOOM
+    const scaleTarget = base * (section ? (mobile ? 0.78 : 0.9) : 1) * DEBUG_ZOOM
     damp(S, 'scale', scaleTarget, 0.35, delta)
-    damp(S, 'anchorX', mobile ? 0 : -vw * 0.06, 0.45, delta)
+    damp(S, 'anchorX', mobile ? 0 : -vw * 0.04, 0.45, delta)
     damp(S, 'yd', mobile ? (section ? vh * 0.24 : vh * 0.12) : -0.3 * S.scale, 0.45, delta)
     const s = S.scale
     const anchorY = vh / 2 + 0.3
@@ -373,6 +374,7 @@ export function Rig() {
       >
         <Device />
       </group>
+      <CalloutTracker device={device} />
     </group>
   )
 }
