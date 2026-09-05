@@ -80,9 +80,9 @@ export function Shell() {
           chromaticAberration={0.02}
           anisotropicBlur={0.15}
           distortion={0}
-          color="#b4d1f7"
-          attenuationColor="#78acf0"
-          attenuationDistance={2.4}
+          color="#a6c8f5"
+          attenuationColor="#5f97e6"
+          attenuationDistance={1.5}
           clearcoat={1}
           clearcoatRoughness={0.1}
           envMapIntensity={1.1}

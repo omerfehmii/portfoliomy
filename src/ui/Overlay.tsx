@@ -12,7 +12,7 @@ import '../styles/ui.css'
 const SPECS: Array<[string, string]> = [
   ['Name', `${profile.firstName} ${profile.lastName}`],
   ['Model', 'Full-stack AI engineer'],
-  ['Hatched', `${profile.hatchedYear} · Gebze Technical University`],
+  ['Hatched', `${profile.hatchedYear} · GTU`],
   ['Firmware', 'Python · TypeScript · LLMs'],
   ['Status', profile.available ? profile.availableText : 'Fully booked for now'],
 ]
@@ -52,10 +52,10 @@ export function Overlay() {
         <p className="run-left">
           <PixelEgg />
           <span className="run-brand">{profile.deviceName}</span>
-          <span className="run-sep" aria-hidden="true">·</span>
-          <span>owner's manual</span>
+          <span className="run-sep run-manual" aria-hidden="true">·</span>
+          <span className="run-manual">owner's manual</span>
         </p>
-        <p className="run-center">fig. 1 — the device</p>
+        <p className="run-center" aria-hidden="true" />
         <p className="run-right">
           <span className="stamp" aria-label={profile.availableText}>
             <span aria-hidden="true">open to<br />work</span>

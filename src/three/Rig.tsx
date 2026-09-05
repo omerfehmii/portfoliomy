@@ -264,7 +264,7 @@ export function Rig() {
     const scaleTarget = base * (section ? (mobile ? 0.78 : 0.9) : 1) * DEBUG_ZOOM
     damp(S, 'scale', scaleTarget, 0.35, delta)
     damp(S, 'anchorX', mobile ? 0 : -vw * 0.04, 0.45, delta)
-    damp(S, 'yd', mobile ? (section ? vh * 0.24 : vh * 0.12) : -0.3 * S.scale, 0.45, delta)
+    damp(S, 'yd', mobile ? (section ? vh * 0.24 : vh * 0.12) : -0.18 * S.scale, 0.45, delta)
     const s = S.scale
     const anchorY = vh / 2 + 0.3
     const rod = ATTACH_OFFSET * s

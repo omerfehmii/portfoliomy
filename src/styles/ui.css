@@ -148,6 +148,10 @@
 }
 .stamp {
   position: relative;
+  transition: opacity 260ms ease;
+}
+.ui[data-mode='section'] .stamp {
+  opacity: 0;
 }
 
 /* ---------- columns ---------- */
@@ -217,6 +221,10 @@
   letter-spacing: 0.02em;
 }
 
+.col-title + * + .col-title,
+.legend + .col-title {
+  margin-top: 26px;
+}
 .col-title {
   font-size: var(--mono-xs);
   font-weight: 400;
@@ -633,7 +641,8 @@
 
 .path {
   position: relative;
-  padding-left: 30px;
+  margin-left: 4px;
+  padding-left: 34px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -651,7 +660,7 @@
 }
 .path-badge {
   position: absolute;
-  left: -30px;
+  left: -34px;
   top: 0;
   width: 21px;
   height: 21px;
@@ -773,13 +782,14 @@
   .run-head {
     top: 14px;
   }
-  .run-center {
+  .run-manual {
     display: none;
   }
   .stamp {
-    width: 48px;
-    height: 48px;
-    font-size: 8.5px;
+    width: 46px;
+    height: 46px;
+    font-size: 8px;
+    letter-spacing: 0.08em;
   }
   .run-foot {
     bottom: 14px;
