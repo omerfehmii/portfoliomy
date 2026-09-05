@@ -1,7 +1,10 @@
 import { useTama } from '../../store/useTama'
 import { profile } from '../../content'
+import { SECTION_META } from '../meta'
 import { host } from '../text'
 import { useRevealActive, useSectionList } from './useSectionList'
+
+const PAGE = SECTION_META.contact.page
 
 /** Contract: the list is [email, ...socials] — same order as lcdItems('contact'). */
 const LINKS = [
@@ -21,12 +24,12 @@ export function Contact() {
 
   return (
     <div className="sec">
-      <h3 className="say-hi">Say hi.</h3>
       <p className="sec-lead">
-        Internships, junior roles, freelance work or a question about one of the projects — all welcome. I read
+        Say hi. Internships, junior roles, freelance work or a question about one of the projects — all welcome. I read
         everything and answer within a couple of days.
       </p>
 
+      <h3 className="sec-sub">Table {PAGE}.1 — Support channels</h3>
       <ul className="rows contact-list">
         {LINKS.map((link, i) => (
           <li
@@ -45,7 +48,10 @@ export function Contact() {
               onClick={() => setSub(LINKS.length, i)}
               aria-label={`${link.label}: ${link.value}${link.external ? ' (opens in a new tab)' : ''}`}
             >
-              <span className="pixel-tag">{link.label}</span>
+              <span className="fig">
+                {PAGE}.{i + 1}
+              </span>
+              <span className="row-title">{link.label}</span>
               <span className="contact-value">{link.value}</span>
               <span className="contact-arrow" aria-hidden="true">
                 ↗
@@ -57,16 +63,20 @@ export function Contact() {
 
       <dl className="facts">
         <div className="facts-row">
-          <dt>BASED IN</dt>
+          <dt>Based in</dt>
           <dd>{profile.location}</dd>
         </div>
         <div className="facts-row">
-          <dt>STATUS</dt>
+          <dt>Response time</dt>
+          <dd>Usually within a couple of days</dd>
+        </div>
+        <div className="facts-row">
+          <dt>Status</dt>
           <dd>{profile.available ? profile.availableText : 'Fully booked for now'}</dd>
         </div>
       </dl>
 
-      <p className="sec-note">B opens the highlighted row.</p>
+      <p className="sec-note">B opens the highlighted channel.</p>
     </div>
   )
 }

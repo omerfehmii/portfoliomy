@@ -1,13 +1,16 @@
 import { useTama } from '../../store/useTama'
 import { education, profile } from '../../content'
+import { SECTION_META } from '../meta'
 import { useSectionList } from './useSectionList'
 
+const PAGE = SECTION_META.about.page
+
 const FACTS: Array<[string, string]> = [
-  ['HATCHED', `${profile.hatchedYear}`],
-  ['BASED IN', profile.location],
-  ['STUDYING', `${education.degree}, ${education.school} (${education.period})`],
-  ['FEEDS ON', 'Hard problems, end-to-end products, coffee'],
-  ['STATUS', profile.available ? profile.availableText : 'Fully booked for now'],
+  ['Hatched', `${profile.hatchedYear}`],
+  ['Based in', profile.location],
+  ['Studying', `${education.degree}, ${education.school} (${education.period})`],
+  ['Feeds on', 'Hard problems, end-to-end products, coffee'],
+  ['Status', profile.available ? profile.availableText : 'Fully booked for now'],
 ]
 
 export function About() {
@@ -30,7 +33,7 @@ export function About() {
         growing.
       </p>
 
-      <h3 className="sec-sub">Care sheet</h3>
+      <h3 className="sec-sub">Table {PAGE}.1 — Specifications</h3>
       <dl className="facts">
         {FACTS.map(([term, value]) => (
           <div className="facts-row" key={term}>
@@ -40,6 +43,7 @@ export function About() {
         ))}
       </dl>
 
+      <h3 className="sec-sub">{PAGE}.2 — Test button</h3>
       <button type="button" className="btn" onClick={() => setMood('eating')} aria-label="Feed the creature">
         Feed me
       </button>

@@ -1,7 +1,10 @@
 import { useTama } from '../../store/useTama'
 import { MAX_HEARTS, skills } from '../../content'
 import { Heart } from '../Glyphs'
+import { SECTION_META } from '../meta'
 import { useRevealActive, useSectionList } from './useSectionList'
+
+const PAGE = SECTION_META.stack.page
 
 export function Stack() {
   const setSub = useTama((s) => s.setSub)
@@ -12,6 +15,7 @@ export function Stack() {
     <div className="sec">
       <p className="sec-lead">Care meters, honestly filled. Five hearts means I would happily do it all day.</p>
 
+      <h3 className="sec-sub">Table {PAGE}.1 — Care meters</h3>
       <ul className="rows">
         {skills.map((group, i) => (
           <li
@@ -28,7 +32,9 @@ export function Stack() {
               onClick={() => setSub(skills.length, i)}
               aria-label={`Highlight ${group.title}`}
             >
-              <span className="pixel-tag">{group.lcdTitle ?? group.title}</span>
+              <span className="fig">
+                {PAGE}.{i + 1}
+              </span>
               <span className="row-title">{group.title}</span>
               <span className="hearts" role="img" aria-label={`${group.level} out of ${MAX_HEARTS}`}>
                 {Array.from({ length: MAX_HEARTS }, (_, h) => (

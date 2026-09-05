@@ -1,7 +1,9 @@
 import { useTama } from '../../store/useTama'
 import { projects } from '../../content'
-import { pad2 } from '../text'
+import { SECTION_META } from '../meta'
 import { useRevealActive, useSectionList } from './useSectionList'
+
+const PAGE = SECTION_META.work.page
 
 export function Work() {
   const setSub = useTama((s) => s.setSub)
@@ -27,13 +29,10 @@ export function Work() {
                 rows.current[i] = el
               }}
             >
-              <button
-                type="button"
-                className="row-head"
-                aria-expanded={open}
-                onClick={() => setSub(projects.length, i)}
-              >
-                <span className="pixel-tag">{project.lcdTitle ?? project.title}</span>
+              <button type="button" className="row-head" aria-expanded={open} onClick={() => setSub(projects.length, i)}>
+                <span className="fig">
+                  Fig. {PAGE}.{i + 1}
+                </span>
                 <span className="row-title">{project.title}</span>
                 <span className="row-year">{project.year}</span>
               </button>
@@ -64,7 +63,7 @@ export function Work() {
                     rel="noopener noreferrer"
                     aria-label={`Visit ${project.title} (opens in a new tab)`}
                   >
-                    VISIT <span aria-hidden="true">↗</span>
+                    Visit <span aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
@@ -73,12 +72,7 @@ export function Work() {
         })}
       </ol>
 
-      <p className="counter">
-        <span className="counter-now">{pad2(active + 1)}</span>
-        <span aria-hidden="true">/</span>
-        {pad2(projects.length)}
-        <span className="counter-hint">B opens the highlighted project</span>
-      </p>
+      <p className="sec-note">B opens the highlighted figure.</p>
     </div>
   )
 }

@@ -28,11 +28,17 @@ export function useSectionList(count: number, onConfirm?: (index: number) => voi
   return subIndex
 }
 
-/** Keeps the highlighted row inside the scrollable panel body. */
+/**
+ * Keeps the highlighted row inside the scrollable panel body. Only the row's head
+ * (its first child) is revealed, so an expanded, taller-than-viewport row never
+ * scrolls the page title away.
+ */
 export function useRevealActive<T extends HTMLElement>(index: number) {
   const refs = useRef<Array<T | null>>([])
   useEffect(() => {
-    refs.current[index]?.scrollIntoView({ block: 'nearest' })
+    const row = refs.current[index]
+    const head = (row?.firstElementChild as HTMLElement | null) ?? row
+    head?.scrollIntoView({ block: 'nearest' })
   }, [index])
   return refs
 }
