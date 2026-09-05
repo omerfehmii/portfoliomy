@@ -54,12 +54,10 @@
 .run-foot,
 .col-title,
 .spec,
-.legend,
 .contents,
 .switches,
 .foot-left,
 .foot-right,
-.callout-badge,
 .pixel-tag,
 .tag,
 .row-year,
@@ -224,8 +222,7 @@
   letter-spacing: 0.02em;
 }
 
-.col-title + * + .col-title,
-.legend + .col-title {
+.col-title + * + .col-title {
   margin-top: 26px;
 }
 .col-title {
@@ -236,29 +233,6 @@
   color: var(--muted);
   padding-bottom: 8px;
   border-bottom: var(--hair);
-}
-.legend {
-  margin: 10px 0 28px;
-  font-size: var(--mono-sm);
-}
-.legend li {
-  display: grid;
-  grid-template-columns: 18px auto 1fr;
-  gap: 10px;
-  align-items: baseline;
-  padding: 5px 0;
-}
-.legend-num {
-  color: var(--accent);
-}
-.legend-part {
-  color: var(--ink);
-}
-.legend-note {
-  color: var(--muted);
-  text-align: right;
-  letter-spacing: 0.02em;
-  text-transform: none;
 }
 
 .contents {
@@ -317,56 +291,6 @@
   border: var(--hair);
   border-radius: 999px;
   padding: 7px 14px;
-}
-
-/* ---------- fig. 1 callouts ---------- */
-.callouts {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  transition: opacity 260ms ease;
-}
-.callout-line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 1px;
-  background: var(--ink);
-  opacity: 0.5;
-  transform-origin: 0 50%;
-  will-change: transform;
-}
-.callout-dot {
-  position: absolute;
-  left: -2px;
-  top: -2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--ink);
-  opacity: 0.75;
-  will-change: transform;
-}
-.callout-badge {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid var(--ink);
-  background: var(--page);
-  color: var(--ink);
-  font-size: var(--mono-xs);
-  line-height: 18px;
-  text-align: center;
-  will-change: transform;
-}
-.ui[data-mode='section'] .callouts,
-.ui[data-mode='boot'] .callouts {
-  opacity: 0;
 }
 
 /* ---------- section page (the manual's inner pages) ---------- */
@@ -910,9 +834,6 @@
   .spec-row:nth-child(n + 4) {
     display: none;
   }
-  .callouts {
-    display: none;
-  }
 
   .col-right {
     top: calc(60px + env(safe-area-inset-top));
@@ -1040,9 +961,6 @@
   }
   .spec-row {
     padding: 6px 0;
-  }
-  .legend li {
-    padding: 3px 0;
   }
 }
 

@@ -27,7 +27,7 @@ Vite · React 19 · TypeScript · three · @react-three/fiber · @react-three/dr
 - No trademarked names on the device; brand comes from `profile.deviceName`.
 - Keep 60fps on a mid-range laptop: no heavy post-processing, DPR capped at 2.
 - Layering: the canvas (`.stage`, z 1) sits above the cover columns so the swinging device passes over the copy;
-  header, footer, callouts and the section panel opt in with z-index 2+. The canvas is `pointer-events: none`;
+  header, footer and the section panel opt in with z-index 2+. The canvas is `pointer-events: none`;
   R3F listens on `.app` (`eventSource` + `eventPrefix="client"`), so DOM buttons under the device still work.
 - `projects` is in CV order with a `kind` (`experience` | `project`); the Work panel groups by it.
 

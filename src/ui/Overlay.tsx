@@ -4,8 +4,6 @@ import { profile } from '../content'
 import { PixelEgg } from './Glyphs'
 import { ICON_LABEL, PAGE_COUNT, SECTION_META, SECTION_ORDER } from './meta'
 import { SectionPanel } from './SectionPanel'
-import { Callouts } from './Callouts'
-import { CALLOUTS } from './calloutDefs'
 import { MOBILE_QUERY, useMediaQuery } from './useMediaQuery'
 import '../styles/ui.css'
 
@@ -17,16 +15,16 @@ const SPECS: Array<[string, string]> = [
   ['Status', profile.available ? profile.availableText : 'Fully booked for now'],
 ]
 
-/** The button legend already fills a phone's width, so the highlighted icon's name is desktop-only. */
-function useCaption(isMobile: boolean) {
+/** Browsing the menu, the caption is just the name of whatever is under the cursor. */
+function useCaption() {
   const mode = useTama((s) => s.mode)
+  const section = useTama((s) => s.section)
   const cursor = useTama((s) => s.cursor)
   const icon = cursor >= 0 && cursor < ICONS.length ? ICONS[cursor] : null
   if (mode === 'boot') return { kind: 'hint', text: 'Press any button to hatch.' }
-  if (mode === 'idle') return { kind: 'fig', text: 'Fig. 1 — The device. Left button opens the menu.' }
-  if (mode === 'menu')
-    return { kind: 'hint', text: `left next · middle open · right back${icon && !isMobile ? ` — ${ICON_LABEL[icon]}` : ''}` }
-  return { kind: 'hint', text: '↑↓ browse · middle open · right back' }
+  if (mode === 'idle') return { kind: 'fig', text: 'Press a button to open the menu.' }
+  if (mode === 'menu') return { kind: 'hint', text: icon ? ICON_LABEL[icon] : 'Menu' }
+  return { kind: 'hint', text: section ? SECTION_META[section].label : 'Menu' }
 }
 
 export function Overlay() {
@@ -39,7 +37,7 @@ export function Overlay() {
   const toggleSound = useTama((s) => s.toggleSound)
   const isMobile = useMediaQuery(MOBILE_QUERY)
   const [helpOpen, setHelpOpen] = useState(false)
-  const caption = useCaption(isMobile)
+  const caption = useCaption()
   const page = section ? SECTION_META[section].page : 1
 
   useEffect(() => {
@@ -48,8 +46,6 @@ export function Overlay() {
 
   return (
     <div className="ui" data-mode={mode}>
-      <Callouts />
-
       <header className="run-head">
         <p className="run-left">
           <PixelEgg />
@@ -81,18 +77,7 @@ export function Overlay() {
         </dl>
       </section>
 
-      <aside className="col col-right" data-open={helpOpen ? 'true' : 'false'} aria-label="Legend and contents">
-        <h2 className="col-title">Fig. 1 — parts</h2>
-        <ol className="legend">
-          {CALLOUTS.map((c) => (
-            <li key={c.id}>
-              <span className="legend-num">{c.num}</span>
-              <span className="legend-part">{c.part}</span>
-              <span className="legend-note">{c.note}</span>
-            </li>
-          ))}
-        </ol>
-
+      <aside className="col col-right" data-open={helpOpen ? 'true' : 'false'} aria-label="Contents">
         <h2 className="col-title">Contents</h2>
         <ol className="contents">
           {SECTION_ORDER.map((id) => (
