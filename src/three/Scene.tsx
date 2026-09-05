@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import { damp, dampC } from 'maath/easing'
@@ -16,6 +16,15 @@ export function Scene() {
   const shadowMat = useRef<THREE.ShadowMaterial>(null)
   const shadowDay = useMemo(() => new THREE.Color('#22365a'), [])
   const shadowNight = useMemo(() => new THREE.Color('#03050a'), [])
+
+  const { gl } = useThree()
+  useEffect(() => {
+    gl.shadowMap.autoUpdate = false
+  }, [gl])
+  // Mark the shadow map dirty once per frame, before any render pass (including the shell's buffer renders).
+  useFrame(() => {
+    gl.shadowMap.needsUpdate = true
+  }, -10)
 
   useFrame((_, delta) => {
     const night = useTama.getState().theme === 'night'
@@ -41,9 +50,9 @@ export function Scene() {
         intensity={1.1}
         color="#fff6e8"
         castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-radius={26}
-        shadow-blurSamples={24}
+        shadow-mapSize={[768, 768]}
+        shadow-radius={18}
+        shadow-blurSamples={10}
         shadow-bias={-0.0004}
         shadow-normalBias={0.02}
       >

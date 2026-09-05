@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react'
 import { useTama } from '../../store/useTama'
 import { certificates, profile } from '../../content'
 import { PixelEgg } from '../Glyphs'
-import { SECTION_META } from '../meta'
 import { useSectionList } from './useSectionList'
 
 /** Captured once per page load, so the log covers the whole visit. */
 const VISIT_START = Date.now()
-const PAGE = SECTION_META.extra.page
 
 const clock = (ms: number) => {
   const total = Math.max(0, Math.floor(ms / 1000))
@@ -43,9 +41,7 @@ export function Extra() {
 
   return (
     <div className="sec">
-      <p className="sec-lead">A care log for this visit. It resets when you leave, like most good habits.</p>
-
-      <h3 className="sec-sub">Table {PAGE}.1 — Maintenance record</h3>
+      <h3 className="sec-sub">Maintenance record</h3>
       <dl className="stats">
         {stats.map(([term, value]) => (
           <div className="stat" key={term}>
@@ -56,7 +52,7 @@ export function Extra() {
       </dl>
 
       <section className="cert" aria-label="Certificate of care">
-        <p className="cert-kicker">{PAGE}.2 — Certificate of care</p>
+        <p className="cert-kicker">Certificate of care</p>
         <p className="cert-body">
           This visitor kept the creature company for <strong>{clock(elapsed)}</strong> and pressed its buttons{' '}
           <strong>{presses}</strong> times. No creatures were neglected in the making of this portfolio.
@@ -72,7 +68,7 @@ export function Extra() {
         </div>
       </section>
 
-      <h3 className="sec-sub">Appendix A — Paperwork</h3>
+      <h3 className="sec-sub">Paperwork</h3>
       <ul className="link-list">
         <li>
           <a className="link-out" href="/cv.pdf" aria-label="Download CV as PDF">
@@ -93,7 +89,6 @@ export function Extra() {
           </li>
         ))}
       </ul>
-      <p className="sec-note">CV: one page, no clip art. Certificates: verifiable on Credly.</p>
     </div>
   )
 }

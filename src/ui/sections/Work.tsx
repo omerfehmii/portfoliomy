@@ -15,8 +15,6 @@ export function Work() {
 
   return (
     <div className="sec">
-      <p className="sec-lead">Six things I have shipped, in the order I would talk about them.</p>
-
       <ol className="rows">
         {projects.map((project, i) => {
           const open = i === active
@@ -31,16 +29,14 @@ export function Work() {
             >
               <button type="button" className="row-head" aria-expanded={open} onClick={() => setSub(projects.length, i)}>
                 <span className="fig">
-                  Fig. {PAGE}.{i + 1}
+                  {PAGE}.{i + 1}
                 </span>
                 <span className="row-title">{project.title}</span>
                 <span className="row-year">{project.year}</span>
               </button>
 
               <div className="row-body" hidden={!open}>
-                <p className="row-role">{project.role}</p>
                 <p className="row-summary">{project.summary}</p>
-                <p className="row-desc">{project.description}</p>
                 {project.highlights && (
                   <ul className="bullets">
                     {project.highlights.map((line) => (
@@ -48,31 +44,28 @@ export function Work() {
                     ))}
                   </ul>
                 )}
-                <ul className="tags">
-                  {project.tags.map((tag) => (
-                    <li key={tag} className="tag">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-                {project.url && (
-                  <a
-                    className="link-out"
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${project.title} (opens in a new tab)`}
-                  >
-                    Visit <span aria-hidden="true">↗</span>
-                  </a>
-                )}
+                <p className="row-meta">
+                  {project.tags.join(' · ')}
+                  {project.url && (
+                    <>
+                      <span className="row-meta-sep" aria-hidden="true"> · </span>
+                      <a
+                        className="row-link"
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${project.title} (opens in a new tab)`}
+                      >
+                        Visit ↗
+                      </a>
+                    </>
+                  )}
+                </p>
               </div>
             </li>
           )
         })}
       </ol>
-
-      <p className="sec-note">B opens the highlighted figure.</p>
     </div>
   )
 }

@@ -71,8 +71,9 @@ export function Shell() {
           background={sceneBg}
           backside
           backsideThickness={0.35}
-          samples={10}
-          resolution={768}
+          backsideResolution={256}
+          samples={7}
+          resolution={512}
           transmission={1}
           roughness={0.16}
           thickness={0.9}

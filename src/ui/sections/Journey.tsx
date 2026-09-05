@@ -1,10 +1,7 @@
 import { useTama } from '../../store/useTama'
 import { journey } from '../../content'
 import { StageMark } from '../Glyphs'
-import { SECTION_META } from '../meta'
 import { useRevealActive, useSectionList } from './useSectionList'
-
-const PAGE = SECTION_META.journey.page
 
 export function Journey() {
   const setSub = useTama((s) => s.setSub)
@@ -16,9 +13,6 @@ export function Journey() {
 
   return (
     <div className="sec">
-      <p className="sec-lead">One creature, six stages. The last one is not mine to unlock.</p>
-
-      <h3 className="sec-sub">Fig. {PAGE}.1 — Evolution chart</h3>
       <ol className="path">
         {journey.map((step, i) => {
           const last = i === journey.length - 1
@@ -47,20 +41,13 @@ export function Journey() {
                   onClick={() => setSub(journey.length, i)}
                   aria-label={`Highlight ${step.title}`}
                 >
-                  <span className="path-title">{step.title}</span>
+                  <span className="row-title">{step.title}</span>
                   {step.org && <span className="path-org">{step.org}</span>}
                 </button>
                 <p className="path-desc">{step.description}</p>
-                {step.highlights && (
-                  <ul className="bullets">
-                    {step.highlights.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                )}
                 {last && (
-                  <button type="button" className="btn" onClick={() => openSection('contact')}>
-                    Say hi
+                  <button type="button" className="row-link" onClick={() => openSection('contact')}>
+                    Say hi →
                   </button>
                 )}
               </div>

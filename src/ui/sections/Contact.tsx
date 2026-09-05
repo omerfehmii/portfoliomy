@@ -24,12 +24,11 @@ export function Contact() {
 
   return (
     <div className="sec">
-      <p className="sec-lead">
-        Say hi. Internships, junior roles, freelance work or a question about one of the projects — all welcome. I read
-        everything and answer within a couple of days.
+      <p className="sec-p">
+        Internships, junior roles, freelance work or a question about one of the projects — all welcome. I answer
+        within a couple of days.
       </p>
 
-      <h3 className="sec-sub">Table {PAGE}.1 — Support channels</h3>
       <ul className="rows contact-list">
         {LINKS.map((link, i) => (
           <li
@@ -53,9 +52,6 @@ export function Contact() {
               </span>
               <span className="row-title">{link.label}</span>
               <span className="contact-value">{link.value}</span>
-              <span className="contact-arrow" aria-hidden="true">
-                ↗
-              </span>
             </a>
           </li>
         ))}
@@ -67,16 +63,10 @@ export function Contact() {
           <dd>{profile.location}</dd>
         </div>
         <div className="facts-row">
-          <dt>Response time</dt>
-          <dd>Usually within a couple of days</dd>
-        </div>
-        <div className="facts-row">
           <dt>Status</dt>
           <dd>{profile.available ? profile.availableText : 'Fully booked for now'}</dd>
         </div>
       </dl>
-
-      <p className="sec-note">B opens the highlighted channel.</p>
     </div>
   )
 }

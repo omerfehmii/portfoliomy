@@ -30,7 +30,7 @@ export function eggProfile(segments = 96): THREE.Vector2[] {
 }
 
 /** Flattened egg. UV: u wraps around with u=0.5 at the front centre, v=0 bottom → v=1 top. */
-export function eggGeometry(latheSegments = 160, profileSegments = 120) {
+export function eggGeometry(latheSegments = 120, profileSegments = 90) {
   const g = new THREE.LatheGeometry(eggProfile(profileSegments), latheSegments)
   g.rotateY(Math.PI)
   g.scale(1, 1, EGG.zScale)

@@ -5,8 +5,8 @@ import { CALLOUTS } from '../ui/calloutDefs'
 
 interface Els {
   badge: HTMLElement | null
-  line: SVGLineElement | null
-  dot: SVGCircleElement | null
+  line: HTMLElement | null
+  dot: HTMLElement | null
 }
 
 /** Projects device-local anchor points to CSS pixels and pins the DOM callouts to them. */
@@ -22,8 +22,8 @@ export function CalloutTracker({ device }: { device: RefObject<THREE.Group | nul
       if (cur?.badge?.isConnected) continue
       els.current[c.id] = {
         badge: document.querySelector<HTMLElement>(`[data-callout="${c.id}"]`),
-        line: document.querySelector<SVGLineElement>(`[data-callout-line="${c.id}"]`),
-        dot: document.querySelector<SVGCircleElement>(`[data-callout-dot="${c.id}"]`),
+        line: document.querySelector<HTMLElement>(`[data-callout-line="${c.id}"]`),
+        dot: document.querySelector<HTMLElement>(`[data-callout-dot="${c.id}"]`),
       }
     }
   }
@@ -44,12 +44,10 @@ export function CalloutTracker({ device }: { device: RefObject<THREE.Group | nul
       const y = ((1 - v.y) / 2) * size.height
       const bx = x + c.badge[0] * s
       const by = y + c.badge[1] * s
-      e.dot.setAttribute('cx', x.toFixed(1))
-      e.dot.setAttribute('cy', y.toFixed(1))
-      e.line.setAttribute('x1', x.toFixed(1))
-      e.line.setAttribute('y1', y.toFixed(1))
-      e.line.setAttribute('x2', bx.toFixed(1))
-      e.line.setAttribute('y2', by.toFixed(1))
+      const len = Math.hypot(bx - x, by - y)
+      const ang = Math.atan2(by - y, bx - x)
+      e.dot.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
+      e.line.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) rotate(${ang.toFixed(4)}rad) scaleX(${len.toFixed(1)})`
       e.badge.style.transform = `translate(${bx.toFixed(1)}px, ${by.toFixed(1)}px) translate(-50%, -50%)`
     }
   })

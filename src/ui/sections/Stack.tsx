@@ -13,9 +13,6 @@ export function Stack() {
 
   return (
     <div className="sec">
-      <p className="sec-lead">Care meters, honestly filled. Five hearts means I would happily do it all day.</p>
-
-      <h3 className="sec-sub">Table {PAGE}.1 — Care meters</h3>
       <ul className="rows">
         {skills.map((group, i) => (
           <li
@@ -42,16 +39,8 @@ export function Stack() {
                 ))}
               </span>
             </button>
-
             <div className="row-body">
-              <ul className="tags">
-                {group.items.map((item) => (
-                  <li key={item} className="tag">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="row-note">{group.note}</p>
+              <p className="row-meta">{group.items.join(' · ')}</p>
             </div>
           </li>
         ))}
