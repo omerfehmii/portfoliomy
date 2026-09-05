@@ -1,8 +1,9 @@
 # Portfolio — Tamagotchi edition
 
 An interactive portfolio: a translucent icy-blue Tamagotchi hanging from a ball chain is the whole interface.
-Its 48x48 1-bit LCD shows a pixel creature (= the developer) and 8 menu icons. Buttons A/B/C = cycle / confirm / back,
-pressed with the mouse on the device (or arrows / Enter / Esc; the A/B/C letter keys are deliberately not bound).
+Its 48x48 1-bit LCD shows a pixel creature (= the developer) and 8 menu icons. The three buttons are
+`'A' | 'B' | 'C'` in code only = cycle / confirm / back; they carry no letters on the device, so user-facing
+copy calls them left / middle / right. Pressed with the mouse (or arrows / Enter / Esc; letter keys are not bound).
 Tapping an LCD icon or a Contents entry opens that page directly.
 Content itself lives in HTML panels (readable, indexable); the canvas is only the stage.
 

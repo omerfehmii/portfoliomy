@@ -17,14 +17,16 @@ const SPECS: Array<[string, string]> = [
   ['Status', profile.available ? profile.availableText : 'Fully booked for now'],
 ]
 
-function useCaption() {
+/** The button legend already fills a phone's width, so the highlighted icon's name is desktop-only. */
+function useCaption(isMobile: boolean) {
   const mode = useTama((s) => s.mode)
   const cursor = useTama((s) => s.cursor)
   const icon = cursor >= 0 && cursor < ICONS.length ? ICONS[cursor] : null
   if (mode === 'boot') return { kind: 'hint', text: 'Press any button to hatch.' }
-  if (mode === 'idle') return { kind: 'fig', text: 'Fig. 1 — The device. Press A to open the menu.' }
-  if (mode === 'menu') return { kind: 'hint', text: `A next · B open · C back${icon ? ` — ${ICON_LABEL[icon]}` : ''}` }
-  return { kind: 'hint', text: '↑↓ browse · B open · C back' }
+  if (mode === 'idle') return { kind: 'fig', text: 'Fig. 1 — The device. Left button opens the menu.' }
+  if (mode === 'menu')
+    return { kind: 'hint', text: `left next · middle open · right back${icon && !isMobile ? ` — ${ICON_LABEL[icon]}` : ''}` }
+  return { kind: 'hint', text: '↑↓ browse · middle open · right back' }
 }
 
 export function Overlay() {
@@ -37,7 +39,7 @@ export function Overlay() {
   const toggleSound = useTama((s) => s.toggleSound)
   const isMobile = useMediaQuery(MOBILE_QUERY)
   const [helpOpen, setHelpOpen] = useState(false)
-  const caption = useCaption()
+  const caption = useCaption(isMobile)
   const page = section ? SECTION_META[section].page : 1
 
   useEffect(() => {

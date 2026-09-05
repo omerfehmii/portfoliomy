@@ -23,13 +23,13 @@ export function drawTicker(lcd: Lcd, g: Glyphs, w: number, t: number) {
 let saver: Glyphs | null = null
 let saverW = 0
 
-/** "ÖMER FEHMI · AI ENGINEER · PRESS A", built once from the about item. */
+/** "ÖMER FEHMI · AI ENGINEER · PRESS A BUTTON", built once from the about item. */
 function ensureSaver() {
   if (saver) return
   const item = lcdItems('about')[0]
   let str = item?.title ?? ''
   if (item?.line2) str += ' · ' + item.line2
-  str += ' · PRESS A'
+  str += ' · PRESS A BUTTON'
   saver = toGlyphs(str)
   saverW = glyphsWidth(saver)
 }

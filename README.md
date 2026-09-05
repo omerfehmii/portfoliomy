@@ -14,16 +14,18 @@ It has a screen, three buttons, and a pair of wings.
 
 ## How to use it
 
+There are three buttons under the screen:
+
 | Button | Does |
 | --- | --- |
-| **A** | next |
-| **B** | open |
-| **C** | back |
+| **left** | next |
+| **middle** | open |
+| **right** | back |
 
-Press **A** to wake the menu, walk through the icons, then press **B** on the one
-you want. You can also tap an icon on the little screen directly, or pick a line
-from the Contents list. If your hands are already on the keyboard, the arrow keys,
-Enter and Esc do the same job.
+Press the left one to wake the menu, walk through the icons, then press the middle
+one on whichever you want. You can also tap an icon on the little screen directly,
+or pick a line from the Contents list. If your hands are already on the keyboard,
+the arrow keys, Enter and Esc do the same job.
 
 Two more things worth trying: grab the chain and pull — it swings, and it keeps
 swinging. Flip the light switch and the whole world turns to night.

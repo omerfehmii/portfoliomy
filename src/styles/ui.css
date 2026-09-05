@@ -873,12 +873,16 @@
   .foot-right {
     display: none;
   }
+  /* `left: 50%` alone caps the shrink-to-fit width at half the footer, which wrapped the button
+     legend into three lines; size to the content instead and only wrap if the phone is narrower. */
   .caption {
     position: absolute;
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    white-space: nowrap;
+    width: max-content;
+    max-width: 100%;
+    text-wrap: balance;
   }
   .ui[data-mode='section'] .caption {
     opacity: 0;
