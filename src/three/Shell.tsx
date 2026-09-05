@@ -43,7 +43,7 @@ function Internals() {
 
 function Loop() {
   return (
-    <mesh position={[0, LOOP_Y, 0]}>
+    <mesh position={[0, LOOP_Y, 0]} castShadow receiveShadow>
       <torusGeometry args={[0.075, 0.02, 16, 40]} />
       <meshStandardMaterial color="#d7dbe0" metalness={1} roughness={0.25} />
     </mesh>
@@ -66,7 +66,7 @@ export function Shell() {
 
   return (
     <group>
-      <mesh geometry={geo}>
+      <mesh geometry={geo} castShadow receiveShadow>
         <MeshTransmissionMaterial
           background={sceneBg}
           backside

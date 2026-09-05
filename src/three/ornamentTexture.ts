@@ -62,6 +62,21 @@ export function makeOrnamentTexture(brand: string) {
     ctx.stroke()
   }
 
+  /** Small spiral curl (1.25 turns) — the classic filigree terminal. */
+  const curl = (x: number, y: number, r: number, side: 1 | -1) => {
+    ctx.lineWidth = 5
+    ctx.beginPath()
+    const steps = 40
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps
+      const a = t * Math.PI * 2.5 * side
+      const rr = r * (1 - t * 0.85)
+      const [px, py] = map(x + Math.cos(a) * rr, y + Math.sin(a) * rr)
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
+    }
+    ctx.stroke()
+  }
+
   const scroll = (side: 1 | -1) => {
     const x = 0.8 * side
     curve(
@@ -76,8 +91,8 @@ export function makeOrnamentTexture(brand: string) {
       ],
       6,
     )
-    dot(x - 0.04 * side, 0.68, 7)
-    dot(x - 0.03 * side, -0.2, 7)
+    curl(x - 0.02 * side, 0.74, 0.06, side)
+    curl(x - 0.06 * side, -0.26, 0.06, (-side) as 1 | -1)
     for (let i = 0; i < 5; i++) dot(x + 0.16 * side, 0.6 - i * 0.2, 4)
     star(x + 0.02 * side, 0.9, 12)
   }
@@ -106,6 +121,12 @@ export function makeOrnamentTexture(brand: string) {
 
     scroll(1)
     scroll(-1)
+
+    // beaded arc under the screen, echoing the bezel
+    for (let i = 0; i <= 14; i++) {
+      const a = Math.PI + (i / 14) * Math.PI
+      dot(Math.cos(a) * 0.74, 0.32 + Math.sin(a) * 0.74 - 0.06, i % 2 === 0 ? 5 : 3)
+    }
 
     // button labels + two small stars
     ctx.textAlign = 'center'

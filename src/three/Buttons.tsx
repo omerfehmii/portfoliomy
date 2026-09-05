@@ -50,11 +50,11 @@ function PushButton({ b, x, y }: { b: Button; x: number; y: number }) {
         <cylinderGeometry args={[R * 1.6, R * 1.6, H * 2.4, 16]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, H / 2]}>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, H / 2]} castShadow receiveShadow>
         <cylinderGeometry args={[R, R, H, 40]} />
         <meshPhysicalMaterial color="#f5f4f0" roughness={0.22} clearcoat={1} clearcoatRoughness={0.08} />
       </mesh>
-      <mesh position={[0, 0, H]} scale={[1, 1, 0.42]}>
+      <mesh position={[0, 0, H]} scale={[1, 1, 0.42]} castShadow receiveShadow>
         <sphereGeometry args={[R, 40, 24]} />
         <meshPhysicalMaterial color="#f7f6f2" roughness={0.18} clearcoat={1} clearcoatRoughness={0.06} />
       </mesh>

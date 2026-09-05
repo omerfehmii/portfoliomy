@@ -84,15 +84,39 @@ export function starburstShape(half = 0.43, perEdge = 4, spike = 0.12, window = 
   return shape
 }
 
-/** Right-hand angel wing silhouette, base at x=0, tip toward +x. Mirror with scale.x = -1 for the left. */
+/**
+ * Right-hand angel wing: rounded shoulder on top, six feather lobes along the trailing edge.
+ * Base at x=0 (attached to the shell), tip toward +x. Mirror with scale.x = -1 for the left wing.
+ */
 export function wingShape() {
   const s = new THREE.Shape()
-  s.moveTo(0, 0.14)
-  s.bezierCurveTo(0.1, 0.3, 0.32, 0.34, 0.46, 0.22)
-  s.quadraticCurveTo(0.36, 0.17, 0.44, 0.06)
-  s.quadraticCurveTo(0.32, 0.03, 0.36, -0.09)
-  s.quadraticCurveTo(0.23, -0.09, 0.22, -0.2)
-  s.quadraticCurveTo(0.1, -0.13, 0, -0.1)
-  s.lineTo(0, 0.14)
+  const tips: [number, number][] = [
+    [0.6, 0.25],
+    [0.54, 0.07],
+    [0.46, -0.06],
+    [0.36, -0.16],
+    [0.24, -0.22],
+    [0.11, -0.23],
+  ]
+  s.moveTo(0, 0.17)
+  s.bezierCurveTo(0.05, 0.32, 0.17, 0.42, 0.3, 0.42)
+  s.bezierCurveTo(0.44, 0.42, 0.54, 0.36, tips[0][0], tips[0][1])
+  for (let i = 0; i < tips.length - 1; i++) {
+    const [ax, ay] = tips[i]
+    const [bx, by] = tips[i + 1]
+    const dx = bx - ax
+    const dy = by - ay
+    const len = Math.hypot(dx, dy)
+    // inward normal (toward the wing body)
+    const ix = dy / len
+    const iy = -dx / len
+    const nx = (ax + bx) / 2 + ix * 0.05
+    const ny = (ay + by) / 2 + iy * 0.05
+    // into the notch almost straight, then bulge outward into a rounded feather tip
+    s.quadraticCurveTo(ax + dx * 0.25 + ix * 0.02, ay + dy * 0.25 + iy * 0.02, nx, ny)
+    s.quadraticCurveTo(bx - dx * 0.3 - ix * 0.05, by - dy * 0.3 - iy * 0.05, bx, by)
+  }
+  s.quadraticCurveTo(0.04, -0.22, 0, -0.14)
+  s.closePath()
   return s
 }

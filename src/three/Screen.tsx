@@ -150,7 +150,7 @@ function Bezel() {
     return g
   }, [])
   return (
-    <mesh geometry={geo} position={[0, LCD_CENTER_Y, BEZEL_Z]}>
+    <mesh geometry={geo} position={[0, LCD_CENTER_Y, BEZEL_Z]} castShadow receiveShadow>
       <meshStandardMaterial color="#c9d1db" roughness={0.45} metalness={0.05} />
     </mesh>
   )

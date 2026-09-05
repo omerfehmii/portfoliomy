@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import { damp, dampC } from 'maath/easing'
@@ -13,6 +13,9 @@ export function Scene() {
   const fill = useRef<THREE.DirectionalLight>(null)
   const amb = useRef<THREE.AmbientLight>(null)
   const env = useRef({ v: 1 })
+  const shadowMat = useRef<THREE.ShadowMaterial>(null)
+  const shadowDay = useMemo(() => new THREE.Color('#22365a'), [])
+  const shadowNight = useMemo(() => new THREE.Color('#03050a'), [])
 
   useFrame((_, delta) => {
     const night = useTama.getState().theme === 'night'
@@ -22,12 +25,35 @@ export function Scene() {
     if (key.current) key.current.intensity = THREE.MathUtils.lerp(0.55, 1.1, (env.current.v - 0.7) / 0.3)
     if (fill.current) fill.current.intensity = 0.25 * env.current.v
     if (amb.current) amb.current.intensity = 0.3 * env.current.v
+    const sm = shadowMat.current
+    if (sm) {
+      sm.opacity = THREE.MathUtils.damp(sm.opacity, night ? 0.32 : 0.24, 4, delta)
+      dampC(sm.color, night ? shadowNight : shadowDay, 0.35, delta)
+    }
   })
 
   return (
     <>
       <ambientLight ref={amb} intensity={0.3} />
-      <directionalLight ref={key} position={[2.5, 4, 5]} intensity={1.1} color="#fff6e8" />
+      <directionalLight
+        ref={key}
+        position={[2.5, 4, 5]}
+        intensity={1.1}
+        color="#fff6e8"
+        castShadow
+        shadow-mapSize={[1024, 1024]}
+        shadow-radius={26}
+        shadow-blurSamples={24}
+        shadow-bias={-0.0004}
+        shadow-normalBias={0.02}
+      >
+        <orthographicCamera attach="shadow-camera" args={[-4.5, 4.5, 4.5, -4.5, 1, 16]} />
+      </directionalLight>
+      {/* the paper behind the device: invisible except where the device shades it */}
+      <mesh position={[0, 0, -0.7]} receiveShadow raycast={() => null}>
+        <planeGeometry args={[60, 60]} />
+        <shadowMaterial ref={shadowMat} transparent opacity={0.24} color="#22365a" depthWrite={false} />
+      </mesh>
       <directionalLight ref={fill} position={[-3, -1, 4]} intensity={0.25} color="#dbe9ff" />
       <Environment resolution={256} frames={1}>
         <mesh scale={50}>

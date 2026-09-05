@@ -44,6 +44,7 @@ export default function App() {
         camera={{ position: [0, 0, 7], fov: 32, near: 0.1, far: 50 }}
         dpr={[1, 2]}
         frameloop={MANUAL_LOOP ? 'never' : 'always'}
+        shadows="variance"
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       >
         <Scene />

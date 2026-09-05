@@ -155,20 +155,6 @@ class Rope {
 
 const Y_AXIS = new THREE.Vector3(0, 1, 0)
 
-/** Soft elliptical blob used as a fake contact shadow on the backdrop. */
-function makeShadowTexture() {
-  const c = document.createElement('canvas')
-  c.width = c.height = 256
-  const ctx = c.getContext('2d')!
-  const g = ctx.createRadialGradient(128, 128, 20, 128, 128, 128)
-  g.addColorStop(0, 'rgba(0,0,0,0.55)')
-  g.addColorStop(0.55, 'rgba(0,0,0,0.22)')
-  g.addColorStop(1, 'rgba(0,0,0,0)')
-  ctx.fillStyle = g
-  ctx.fillRect(0, 0, 256, 256)
-  const t = new THREE.CanvasTexture(c)
-  return t
-}
 /** ?zoom=2.5 enlarges the device for close inspection during development. */
 const DEBUG_ZOOM = (typeof location !== 'undefined' && Number(new URLSearchParams(location.search).get('zoom'))) || 1
 
@@ -177,8 +163,6 @@ export function Rig() {
   const device = useRef<THREE.Group>(null)
   const balls = useRef<THREE.InstancedMesh>(null)
   const links = useRef<THREE.InstancedMesh>(null)
-  const shadow = useRef<THREE.Mesh>(null)
-  const shadowTex = useMemo(makeShadowTexture, [])
   const rope = useMemo(() => new Rope(), [])
   const acc = useRef(0)
   const sm = useRef({ scale: 1, anchorX: 0, yd: -0.4, twistY: 0, twistX: 0 })
@@ -310,17 +294,6 @@ export function Rig() {
     g.rotation.x = S.twistX
     g.scale.setScalar(s)
 
-    // fake shadow on the backdrop, offset down-right like the key light
-    const sh = shadow.current
-    if (sh) {
-      sh.position.set(P[C] + 0.22 * s, P[C + 1] - 0.3 * s, -1.4)
-      sh.rotation.z = g.rotation.z
-      sh.scale.set(3.1 * s, 3.9 * s, 1)
-      const night = st.theme === 'night'
-      const mat = sh.material as THREE.MeshBasicMaterial
-      mat.opacity = THREE.MathUtils.damp(mat.opacity, night ? 0.25 : 0.16, 4, delta)
-    }
-
     // chain instances
     const B = balls.current
     const L = links.current
@@ -354,15 +327,11 @@ export function Rig() {
 
   return (
     <group>
-      <mesh ref={shadow} position={[0, 0, -1.4]} raycast={() => null}>
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial map={shadowTex} transparent opacity={0.16} depthWrite={false} toneMapped={false} />
-      </mesh>
-      <instancedMesh ref={balls} args={[undefined, undefined, MAX_NODES]} frustumCulled={false} raycast={() => null}>
+      <instancedMesh ref={balls} args={[undefined, undefined, MAX_NODES]} frustumCulled={false} raycast={() => null} castShadow receiveShadow>
         <sphereGeometry args={[1, 20, 14]} />
         <meshStandardMaterial color="#d8dce2" metalness={1} roughness={0.22} />
       </instancedMesh>
-      <instancedMesh ref={links} args={[undefined, undefined, MAX_NODES]} frustumCulled={false} raycast={() => null}>
+      <instancedMesh ref={links} args={[undefined, undefined, MAX_NODES]} frustumCulled={false} raycast={() => null} castShadow receiveShadow>
         <cylinderGeometry args={[1, 1, 1, 8]} />
         <meshStandardMaterial color="#b9bec6" metalness={1} roughness={0.3} />
       </instancedMesh>
