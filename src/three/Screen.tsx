@@ -113,11 +113,12 @@ function LcdPlane() {
   const onTap = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation()
     const s = useTama.getState()
-    if (!e.uv) return s.press('B')
+    // Any tap hatches; after that, a tap on the bare screen opens the menu and a tap on an icon opens that page.
+    if (s.mode === 'boot' || !e.uv) return s.press('B')
     const px = Math.floor(e.uv.x * LCD_W)
     const py = Math.floor((1 - e.uv.y) * LCD_H)
     const i = iconAt(px, py)
-    if (i < 0) return s.press('B')
+    if (i < 0) return s.mode === 'idle' ? s.moveCursor(1) : s.touch()
     const id = ICONS[i]
     if (id === 'light') s.toggleTheme()
     else if (id === 'sound') s.toggleSound()

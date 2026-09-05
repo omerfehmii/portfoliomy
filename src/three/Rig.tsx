@@ -158,6 +158,22 @@ const Y_AXIS = new THREE.Vector3(0, 1, 0)
 /** ?zoom=2.5 enlarges the device for close inspection during development. */
 const DEBUG_ZOOM = (typeof location !== 'undefined' && Number(new URLSearchParams(location.search).get('zoom'))) || 1
 
+/**
+ * Mobile budget, in CSS px (the camera's fov is vertical, so world width follows the aspect ratio:
+ * sizing off `viewport.width` alone makes the device *grow* as the phone gets shorter, until it
+ * lands on the headline). Instead fit it to the band left between the running head and whatever
+ * owns the bottom of the screen — the cover copy, or the inner page sheet.
+ */
+const MOBILE_HEAD_PX = 58
+/** `.col-left` on mobile: its block plus the 60px bottom offset (see ui.css). */
+const MOBILE_COPY_PX = 268
+/** `.panel` height on mobile (62dvh); the device is allowed to tuck this far behind it. */
+const MOBILE_SHEET = 0.62
+const MOBILE_SHEET_TUCK_PX = 48
+const MOBILE_GAP_PX = 16
+/** Device height in world units at scale 1: the egg (2.6) plus the chain loop. */
+const DEVICE_H = 2.72
+
 export function Rig() {
   const { viewport, size, gl } = useThree()
   const device = useRef<THREE.Group>(null)
@@ -236,19 +252,29 @@ export function Rig() {
     if (!g) return
     const vw = viewport.width
     const vh = viewport.height
-    const mobile = size.width < 768
+    const mobile = size.width <= 768 // matches MOBILE_QUERY in ui/useMediaQuery
     const st = useTama.getState()
     const section = st.mode === 'section'
     const S = sm.current
 
-    // layout: desktop = device just left of centre (so a right-side panel never overlaps it), mobile = device on top
-    const base = mobile
-      ? THREE.MathUtils.clamp(vw / 2.9, 0.4, 1)
-      : THREE.MathUtils.clamp(vw / 3.7, 0.46, 1)
-    const scaleTarget = base * (section ? (mobile ? 0.78 : 0.9) : 1) * DEBUG_ZOOM
-    damp(S, 'scale', scaleTarget, 0.35, delta)
+    // layout: desktop = device just left of centre (so a right-side panel never overlaps it),
+    // mobile = device on top, fitted to the free band above the copy or the page sheet
+    let scaleTarget: number
+    let ydTarget: number
+    if (mobile) {
+      const bottomPx = section ? size.height * MOBILE_SHEET - MOBILE_SHEET_TUCK_PX : MOBILE_COPY_PX
+      const topPx = MOBILE_HEAD_PX + MOBILE_GAP_PX
+      const roomPx = Math.max(150, size.height - topPx - bottomPx - MOBILE_GAP_PX)
+      const perWorld = size.height / vh // px per world unit
+      scaleTarget = THREE.MathUtils.clamp(Math.min(vw / 2.9, roomPx / perWorld / DEVICE_H), 0.34, 1)
+      ydTarget = (size.height / 2 - (topPx + roomPx / 2)) / perWorld
+    } else {
+      scaleTarget = THREE.MathUtils.clamp(vw / 3.7, 0.46, 1) * (section ? 0.9 : 1)
+      ydTarget = -0.18 * scaleTarget
+    }
+    damp(S, 'scale', scaleTarget * DEBUG_ZOOM, 0.35, delta)
     damp(S, 'anchorX', mobile ? 0 : -vw * 0.04, 0.45, delta)
-    damp(S, 'yd', mobile ? (section ? vh * 0.24 : vh * 0.12) : -0.18 * S.scale, 0.45, delta)
+    damp(S, 'yd', ydTarget, 0.45, delta)
     const s = S.scale
     const anchorY = vh / 2 + 0.3
     const rod = ATTACH_OFFSET * s

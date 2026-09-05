@@ -24,8 +24,12 @@ export interface Profile {
   hatchedYear: number
 }
 
+export type ProjectKind = 'experience' | 'project'
+
 export interface Project {
   id: string
+  /** Work panel grouping: professional experience first, then projects (CV order). */
+  kind: ProjectKind
   title: string
   year: string
   role: string

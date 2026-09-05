@@ -23,7 +23,7 @@ function useCaption() {
   const icon = cursor >= 0 && cursor < ICONS.length ? ICONS[cursor] : null
   if (mode === 'boot') return { kind: 'hint', text: 'Press any button to hatch.' }
   if (mode === 'idle') return { kind: 'fig', text: 'Fig. 1 — The device. Press A to open the menu.' }
-  if (mode === 'menu') return { kind: 'hint', text: `A next · B open · C close${icon ? ` — ${ICON_LABEL[icon]}` : ''}` }
+  if (mode === 'menu') return { kind: 'hint', text: `A next · B open · C back${icon ? ` — ${ICON_LABEL[icon]}` : ''}` }
   return { kind: 'hint', text: '↑↓ browse · B open · C back' }
 }
 

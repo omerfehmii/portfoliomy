@@ -3,22 +3,20 @@ import type { Profile } from './types'
 export const profile: Profile = {
   firstName: 'Ömer Fehmi',
   lastName: 'Çakıcı',
-  deviceName: 'omergotchi',
+  deviceName: 'pocketdev',
   role: 'Full-stack AI engineer in training',
   lcdRole: 'AI ENGINEER',
   headline: ['Feeds on hard problems.', 'Ships end-to-end.'],
   pitch:
-    'I am a computer engineering student at Gebze Technical University and I build AI products end to end: the pipeline that collects, the multi-agent LLM system that reads, and the dashboard someone actually opens. Right now that means 10,000+ social items a week, and an AI that runs first-round interviews.',
+    'Most of my work sits where data and language models meet production. The Social Media Intelligence Pipeline reads more than ten thousand posts a week and turns them into brand-collaboration analytics. HirePilot lets an AI run the first interview and rank candidates for a hiring team. In between, an inventory system I built freelance runs every day on a warehouse floor.',
   intro: [
     'Computer engineering student at GTU.',
-    'I build AI products end to end.',
-    'Pipelines, agents, dashboards — shipped.',
+    'I build AI products end to end: the data pipeline, the model layer, and the interface someone actually uses.',
   ],
   meters: [
     { label: 'Hunger for hard problems', level: 5 },
     { label: 'Shipping', level: 4 },
     { label: 'Sleep', level: 2 },
-    { label: 'Coffee', level: 5 },
   ],
   location: 'Türkiye',
   available: true,

@@ -67,6 +67,7 @@ body {
   overflow: hidden;
   transition: background-color 400ms ease, color 400ms ease;
 }
-.app { position: relative; z-index: 0; width: 100%; height: 100dvh; }
-.stage { position: absolute !important; inset: 0; }
-.stage canvas { touch-action: none; }
+.app { position: relative; z-index: 0; width: 100%; height: 100dvh; touch-action: none; }
+/* Above the cover text (z 1) so the swinging device passes over it; page furniture (header, footer,
+   callouts, inner page) sits at z 2+. Pointer events go to .app, see App.tsx. */
+.stage { position: absolute !important; inset: 0; z-index: 1; pointer-events: none; }

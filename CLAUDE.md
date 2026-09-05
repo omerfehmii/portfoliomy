@@ -1,7 +1,9 @@
 # Portfolio — Tamagotchi edition
 
 An interactive portfolio: a translucent icy-blue Tamagotchi hanging from a ball chain is the whole interface.
-Its 48x48 1-bit LCD shows a pixel creature (= the developer) and 8 menu icons. Buttons A/B/C = cycle / confirm / back.
+Its 48x48 1-bit LCD shows a pixel creature (= the developer) and 8 menu icons. Buttons A/B/C = cycle / confirm / back,
+pressed with the mouse on the device (or arrows / Enter / Esc; the A/B/C letter keys are deliberately not bound).
+Tapping an LCD icon or a Contents entry opens that page directly.
 Content itself lives in HTML panels (readable, indexable); the canvas is only the stage.
 
 ## Stack
@@ -23,6 +25,10 @@ Vite · React 19 · TypeScript · three · @react-three/fiber · @react-three/dr
 - All text on screen must remain real DOM (selectable). LCD text is decorative only.
 - No trademarked names on the device; brand comes from `profile.deviceName`.
 - Keep 60fps on a mid-range laptop: no heavy post-processing, DPR capped at 2.
+- Layering: the canvas (`.stage`, z 1) sits above the cover columns so the swinging device passes over the copy;
+  header, footer, callouts and the section panel opt in with z-index 2+. The canvas is `pointer-events: none`;
+  R3F listens on `.app` (`eventSource` + `eventPrefix="client"`), so DOM buttons under the device still work.
+- `projects` is in CV order with a `kind` (`experience` | `project`); the Work panel groups by it.
 
 ## Scripts
 `npm run dev` · `npm run build` · `npm run typecheck`
@@ -34,4 +40,5 @@ The desktop Browser pane often reports `document.visibilityState === 'hidden'`, 
   navigating so the R3F root mounts, then advance).
 - `window.__tama` — the zustand store; `window.__rig` — `{ grab(nx, ny), move(nx, ny), release(), state() }` (NDC coords) to drive drags.
 - `?zoom=2.4` — enlarges the device for close inspection.
-- Synthetic PointerEvents in the emulated viewport reach R3F with halved offsets: dispatch at 2× client coordinates.
+- Synthetic PointerEvents: dispatch on `document.elementFromPoint(x, y)` (that is `.app`) with plain client
+  coordinates; R3F reads `clientX/Y`, so scale screenshot coordinates by `innerWidth / screenshotWidth` only.

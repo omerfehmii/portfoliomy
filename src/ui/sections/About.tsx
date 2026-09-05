@@ -6,7 +6,7 @@ const FACTS: Array<[string, string]> = [
   ['Hatched', `${profile.hatchedYear}`],
   ['Based in', profile.location],
   ['Studying', `${education.degree}, ${education.school} (${education.period})`],
-  ['Feeds on', 'Hard problems, end-to-end products, coffee'],
+  ['Feeds on', 'Hard problems, end-to-end products'],
   ['Status', profile.available ? profile.availableText : 'Fully booked for now'],
 ]
 
@@ -20,9 +20,9 @@ export function About() {
 
       <p className="sec-p">{profile.pitch}</p>
       <p className="sec-p">
-        The part I like is the whole path: the collection, the model, the evaluation, and the screen someone actually
-        opens. A multi-agent system is only interesting once you can measure whether it is right, and only useful once
-        somebody can use it without me in the room.
+        I care about the unglamorous parts: whether the pipeline is reproducible, whether the model is measured
+        against real labels, and whether the whole thing is cheap enough to keep running. A system is finished when
+        someone else can rely on it without me in the room.
       </p>
       <h3 className="sec-sub">Specifications</h3>
       <dl className="facts">
@@ -33,10 +33,6 @@ export function About() {
           </div>
         ))}
       </dl>
-
-      <button type="button" className="row-link" onClick={() => setMood('eating')} aria-label="Feed the creature">
-        Feed me →
-      </button>
     </div>
   )
 }

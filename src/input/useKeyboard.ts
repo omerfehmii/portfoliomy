@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useTama } from '../store/useTama'
 
-/** Arrow keys cycle (A), Enter/Z/Space confirm (B), Esc/X/Backspace cancel (C). 'A' key = A button. */
+/** Arrow keys browse, Enter/Space open, Esc/Backspace go back. The A/B/C letter keys are not bound; the buttons live on the device. */
 export function useKeyboard() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -14,9 +14,8 @@ export function useKeyboard() {
         case 'ArrowLeft': s.moveCursor(-1); break
         case 'ArrowDown': s.moveSub(1); break
         case 'ArrowUp': s.moveSub(-1); break
-        case 'a': case 'A': s.press('A'); break
-        case 'Enter': case 'z': case 'Z': case ' ': s.press('B'); break
-        case 'Escape': case 'x': case 'X': case 'Backspace': s.press('C'); break
+        case 'Enter': case ' ': s.press('B'); break
+        case 'Escape': case 'Backspace': s.press('C'); break
         default: return
       }
       e.preventDefault()

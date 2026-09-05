@@ -8,7 +8,7 @@
 .ui {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  /* no z-index: the columns stay below the canvas, everything else opts in with z-index 2+ */
   pointer-events: none;
   --hair: 1px solid var(--line);
   --mono-xs: 10px;
@@ -92,9 +92,11 @@
 }
 .run-head {
   top: 22px;
+  z-index: 2;
 }
 .run-foot {
   bottom: 22px;
+  z-index: 2;
 }
 .run-left,
 .foot-left {
@@ -186,14 +188,15 @@
   font-style: italic;
   color: var(--muted);
 }
-.greet-sub {
-  margin-top: 18px;
+.ui .greet-sub {
+  margin-top: 22px;
   font-size: 15px;
   color: var(--muted);
 }
 
-.spec {
-  margin-top: 26px;
+/* `.ui dl` resets margins, so the table needs the extra specificity to keep its gap under the greeting. */
+.ui .spec {
+  margin-top: 44px;
   border-top: var(--hair);
   font-size: var(--mono-sm);
   text-transform: uppercase;
@@ -320,6 +323,8 @@
 .callouts {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  pointer-events: none;
   transition: opacity 260ms ease;
 }
 .callout-line {
@@ -367,6 +372,7 @@
 /* ---------- section page (the manual's inner pages) ---------- */
 .panel {
   position: absolute;
+  z-index: 3;
   top: 60px;
   right: 40px;
   bottom: 62px;
@@ -847,7 +853,7 @@
     right: 18px;
   }
   .run-head {
-    top: 14px;
+    top: calc(14px + env(safe-area-inset-top));
   }
   .run-manual {
     display: none;
@@ -859,7 +865,7 @@
     letter-spacing: 0.08em;
   }
   .run-foot {
-    bottom: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
     grid-template-columns: 1fr;
     justify-items: center;
   }
@@ -878,9 +884,10 @@
     opacity: 0;
   }
 
+  /* Keep in sync with MOBILE_COPY_PX in three/Rig.tsx: the device is sized to the room left above. */
   .col-left {
     top: auto;
-    bottom: 60px;
+    bottom: calc(60px + env(safe-area-inset-bottom));
     left: 18px;
     right: 18px;
     width: auto;
@@ -889,12 +896,12 @@
   .greet {
     font-size: 30px;
   }
-  .greet-sub {
+  .ui .greet-sub {
     margin-top: 8px;
     font-size: 14px;
   }
-  .spec {
-    margin-top: 12px;
+  .ui .spec {
+    margin-top: 20px;
   }
   .spec-row:nth-child(n + 4) {
     display: none;
@@ -904,7 +911,7 @@
   }
 
   .col-right {
-    top: 60px;
+    top: calc(60px + env(safe-area-inset-top));
     right: 18px;
     left: 18px;
     width: auto;
@@ -912,7 +919,8 @@
     background: var(--page);
     border: var(--hair);
     border-radius: 12px;
-    padding: 18px 20px 20px;
+    /* top padding leaves the first heading clear of the × in the sheet's corner */
+    padding: 46px 20px 20px;
     opacity: 0;
     pointer-events: none;
     z-index: 5;
@@ -923,11 +931,12 @@
     transform: none;
     pointer-events: auto;
   }
-  .help-toggle {
+  /* `.ui button` resets background/border, so these two need the extra specificity to keep theirs. */
+  .ui .help-toggle {
     display: grid;
     place-items: center;
     position: absolute;
-    top: 74px;
+    top: calc(74px + env(safe-area-inset-top));
     right: 18px;
     width: 34px;
     height: 34px;
@@ -939,7 +948,15 @@
     color: var(--ink);
     z-index: 6;
   }
-  .scrim {
+  /* open: the × is the sheet's own corner control, so it drops the pill */
+  .ui .help-toggle[aria-expanded='true'] {
+    top: calc(68px + env(safe-area-inset-top));
+    right: 22px;
+    border-color: transparent;
+    background: none;
+    font-size: 18px;
+  }
+  .ui .scrim {
     display: block;
     position: absolute;
     inset: 0;
@@ -993,7 +1010,7 @@
     padding: 16px 20px 24px;
   }
   .panel-foot {
-    padding: 10px 20px 12px;
+    padding: 10px 20px calc(12px + env(safe-area-inset-bottom));
   }
   .row-head,
   .path-step {

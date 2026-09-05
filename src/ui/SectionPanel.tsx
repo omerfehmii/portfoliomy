@@ -97,8 +97,8 @@ export function SectionPanel() {
         <p className="panel-run">
           p. {meta.page} / {PAGE_COUNT}
         </p>
-        <button type="button" className="panel-close" onClick={() => press('C')} aria-label="Close page (C button)">
-          <span aria-hidden="true">C</span>
+        <button type="button" className="panel-close" onClick={() => press('C')} aria-label="Close page">
+          <span aria-hidden="true">×</span>
         </button>
       </header>
 

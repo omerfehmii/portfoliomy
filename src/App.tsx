@@ -1,5 +1,5 @@
 import { Canvas, useThree } from '@react-three/fiber'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Scene } from './three/Scene'
 import { Overlay } from './ui/Overlay'
 import { useKeyboard } from './input/useKeyboard'
@@ -37,10 +37,15 @@ export default function App() {
   useIdleSleep()
   useThemeAttribute()
   useSoundFx()
+  // The canvas sits above the text columns (the device swings over the copy) and is pointer-events:none so the
+  // copy stays selectable; R3F listens on the app root instead and raycasts from client coordinates.
+  const appRef = useRef<HTMLDivElement>(null!)
   return (
-    <div className="app">
+    <div className="app" ref={appRef}>
       <Canvas
         className="stage"
+        eventSource={appRef}
+        eventPrefix="client"
         camera={{ position: [0, 0, 7], fov: 32, near: 0.1, far: 50 }}
         dpr={[1, 1.5]}
         frameloop={MANUAL_LOOP ? 'never' : 'always'}
