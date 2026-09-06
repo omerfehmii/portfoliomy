@@ -55,7 +55,6 @@ Currently **open to work**.
 - [LinkedIn](https://www.linkedin.com/in/omerfehmi0101/)
 - [GitHub](https://github.com/omerfehmii)
 - [omerfehmicakici@gmail.com](mailto:omerfehmicakici@gmail.com)
-- [CV (PDF)](https://omerfehmicakici.netlify.app/cv.pdf)
 
 ---
 

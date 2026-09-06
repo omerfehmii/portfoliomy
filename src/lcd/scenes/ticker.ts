@@ -23,7 +23,7 @@ export function drawTicker(lcd: Lcd, g: Glyphs, w: number, t: number) {
 let saver: Glyphs | null = null
 let saverW = 0
 
-/** "ÖMER FEHMI · AI ENGINEER · PRESS A BUTTON", built once from the about item. */
+/** "ÖMER FEHMI · COMP ENG · PRESS A BUTTON", built once from the about item. */
 function ensureSaver() {
   if (saver) return
   const item = lcdItems('about')[0]

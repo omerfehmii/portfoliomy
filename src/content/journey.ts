@@ -45,7 +45,7 @@ export const journey: JourneyStep[] = [
     lcdTitle: 'AI PRODUCTS',
     org: 'Halkbank internship · HirePilot · Social Intel',
     description:
-      'An internship at HALKBANK on banking profitability analytics, while HirePilot grew into a full B2B platform with an AI interviewer and the Social Media Intelligence Pipeline started reading 10,000+ items a week.',
+      'An internship at HALKBANK on banking profitability analytics, while HirePilot grew into a full B2B platform with an AI interviewer and the Social Media Intelligence Pipeline started reading thousands of items a week.',
   },
   {
     stage: 'legend',

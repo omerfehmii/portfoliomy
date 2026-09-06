@@ -63,13 +63,13 @@ export const projects: Project[] = [
     summary:
       'Monitors a curated panel of social accounts and turns ephemeral content into brand-collaboration analytics.',
     description:
-      'Content that disappears in 24 hours becomes a durable, queryable archive. Collection runs unattended around the clock, and every item carries its provenance. On top of the archive sits a multi-modal reading stack: visual frames, speech transcription and LLM readers that detect sponsorships, promo mechanics and brand mentions.',
+      'Content that disappears in 24 hours becomes a durable, queryable archive. Collection runs unattended around the clock, and every item carries its provenance. On top of the archive sits a multi-modal reading stack: visual frames, speech transcription and VLM readers that detect sponsorships, promo mechanics and brand mentions.',
     highlights: [
-      '10,000+ new items a week from 270+ accounts, collected 24/7 with a durable archive and full provenance.',
-      'Multi-modal analysis: visual frames + speech transcription + LLM readers for sponsorships, promo mechanics and brand mentions.',
-      'Reproducible processing, accuracy measured against human-labeled benchmarks, per-item LLM cost tuned roughly 15x down.',
+      'Thousands of new items a week from hundreds of accounts, collected 24/7 with a durable archive and full provenance.',
+      'Multi-modal analysis: visual frames + speech transcription + VLM readers for sponsorships, promo mechanics and brand mentions.',
+      'Reproducible processing, accuracy measured against human-labeled benchmarks, per-item VLM cost tuned roughly 15x down.',
     ],
-    tags: ['Data pipeline', 'LLM evaluation', 'Speech + vision', 'Python', 'Cost engineering'],
+    tags: ['Data pipeline', 'VLM evaluation', 'Speech + vision', 'Python', 'Cost engineering'],
     url: GITHUB,
   },
   {

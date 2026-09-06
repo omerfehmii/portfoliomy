@@ -6,7 +6,7 @@ export interface Profile {
   /** Brand printed in gold on the device shell and in the header, e.g. "foliogotchi". */
   deviceName: string
   role: string
-  /** Short role for the 48px LCD (≤ 11 chars), e.g. "AI ENGINEER". */
+  /** Short role for the 48px LCD (≤ 11 chars), e.g. "COMP ENG". */
   lcdRole?: string
   /** Two-line hero headline. */
   headline: [string, string]

@@ -9,7 +9,7 @@ import '../styles/ui.css'
 
 const SPECS: Array<[string, string]> = [
   ['Name', `${profile.firstName} ${profile.lastName}`],
-  ['Model', 'Full-stack AI engineer'],
+  ['Model', 'Computer engineer'],
   ['Hatched', `${profile.hatchedYear} · GTU`],
   ['Firmware', 'Python · TypeScript · LLMs'],
   ['Status', profile.available ? profile.availableText : 'Fully booked for now'],

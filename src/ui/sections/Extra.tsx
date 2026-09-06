@@ -70,11 +70,6 @@ export function Extra() {
 
       <h3 className="sec-sub">Paperwork</h3>
       <ul className="link-list">
-        <li>
-          <a className="link-out" href="/cv.pdf" aria-label="Download CV as PDF">
-            Download CV (PDF) <span aria-hidden="true">↗</span>
-          </a>
-        </li>
         {certificates.map((cert) => (
           <li key={cert.url}>
             <a

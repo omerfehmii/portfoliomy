@@ -4,11 +4,11 @@ export const profile: Profile = {
   firstName: 'Ömer Fehmi',
   lastName: 'Çakıcı',
   deviceName: 'pocketdev',
-  role: 'Full-stack AI engineer in training',
-  lcdRole: 'AI ENGINEER',
+  role: 'Computer engineer in training',
+  lcdRole: 'COMP ENG',
   headline: ['Feeds on hard problems.', 'Ships end-to-end.'],
   pitch:
-    'Most of my work sits where data and language models meet production. The Social Media Intelligence Pipeline reads more than ten thousand posts a week and turns them into brand-collaboration analytics. HirePilot lets an AI run the first interview and rank candidates for a hiring team. In between, an inventory system I built freelance runs every day on a warehouse floor.',
+    'Most of my work sits where data and language models meet production. The Social Media Intelligence Pipeline reads thousands of items a week and turns them into brand-collaboration analytics. HirePilot lets an AI run the first interview and rank candidates for a hiring team. In between, an inventory system I built freelance runs every day on a warehouse floor.',
   intro: [
     'Computer engineering student at GTU.',
     'I build AI products end to end: the data pipeline, the model layer, and the interface someone actually uses.',
@@ -30,7 +30,7 @@ export const profile: Profile = {
 }
 
 /** Compact "class" line printed under the name on the status card. */
-export const classLine = 'FULL-STACK AI ENGINEER · COMPUTER ENGINEERING @ GTU'
+export const classLine = 'COMPUTER ENGINEER · GEBZE TECHNICAL UNIVERSITY'
 
 /** School line printed under the name on the status card. */
 export const education = {

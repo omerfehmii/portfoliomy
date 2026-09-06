@@ -1,7 +1,7 @@
 import { sprite, type Sprite } from '../Lcd'
 
 /**
- * The person on the screen: Ömer — computer-engineering student, AI engineer.
+ * The person on the screen: Ömer — computer-engineering student and engineer.
  * An original 1-bit figure, not a mascot: a cap of dark hair, a light face with
  * two eye pixels, a hoodie body, 1px arms and 2px legs with feet.
  *
