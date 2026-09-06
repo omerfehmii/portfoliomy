@@ -2,7 +2,7 @@
 
 A portfolio you play with instead of scroll.
 
-**→ [omerfehmicakici.netlify.app](https://omerfehmicakici.netlify.app)**
+**→ [omerfehmicakici.com](https://omerfehmicakici.com)**
 
 ---
 
