@@ -6,6 +6,7 @@ import { useKeyboard } from './input/useKeyboard'
 import { useIdleSleep } from './input/useIdleSleep'
 import { useThemeAttribute } from './input/useThemeAttribute'
 import { useSoundFx } from './audio/useSoundFx'
+import { useAnalytics } from './analytics/useAnalytics'
 import { useTama } from './store/useTama'
 
 /**
@@ -37,6 +38,7 @@ export default function App() {
   useIdleSleep()
   useThemeAttribute()
   useSoundFx()
+  useAnalytics()
   // The canvas sits above the text columns (the device swings over the copy) and is pointer-events:none so the
   // copy stays selectable; R3F listens on the app root instead and raycasts from client coordinates.
   const appRef = useRef<HTMLDivElement>(null!)

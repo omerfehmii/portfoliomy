@@ -19,6 +19,7 @@ Vite · React 19 · TypeScript · three · @react-three/fiber · @react-three/dr
 - `src/content/*` — typed content. Placeholders until the owner provides real content.
 - `src/audio/*` — Web Audio beeps, `useSoundFx` subscribes to store changes.
 - `src/input/*` — keyboard, idle sleep, theme attribute.
+- `src/analytics/*` — Umami, `useAnalytics` subscribes to store changes the way `useSoundFx` does.
 
 ## Conventions
 - Menu icon order: `ICONS` in the store (4 top, 4 bottom). `light` toggles day/night, `sound` toggles beeps.
@@ -30,6 +31,10 @@ Vite · React 19 · TypeScript · three · @react-three/fiber · @react-three/dr
   header, footer and the section panel opt in with z-index 2+. The canvas is `pointer-events: none`;
   R3F listens on `.app` (`eventSource` + `eventPrefix="client"`), so DOM buttons under the device still work.
 - `projects` is in CV order with a `kind` (`experience` | `project`); the Work panel groups by it.
+- Analytics is cookieless and opt-in by environment: no `VITE_UMAMI_ID`, no collector, no events — so
+  local runs and forks stay out of the numbers. Events are coarse on purpose (page opened, one bucketed
+  engagement event per visit); never send anything that identifies a visitor, or a consent banner becomes
+  mandatory and the packaging is ruined.
 
 ## Scripts
 `npm run dev` · `npm run build` · `npm run typecheck`

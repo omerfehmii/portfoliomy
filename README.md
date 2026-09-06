@@ -44,6 +44,13 @@ The device is a seven-page owner's manual.
 | 6 | **Contact** |
 | 7 | **Care log** — certificates, and the small print |
 
+## The small print
+
+The site counts visits with [Umami](https://umami.is): no cookies, no personal
+data, nothing that follows anyone anywhere else. It records which of the seven
+pages get opened and roughly how much the device gets played with, so I know
+which parts are worth writing better. Browsers asking not to be tracked are not.
+
 ## Who this belongs to
 
 **Ömer Fehmi Çakıcı** — computer engineering student at Gebze Technical
